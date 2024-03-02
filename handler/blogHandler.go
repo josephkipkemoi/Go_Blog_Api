@@ -13,7 +13,7 @@ var validate *validator.Validate
 
 // Index handler function returns all records from the database
 func Index(ctx *gin.Context) {
-	ctx.Header("Access-Control-Allow-Origin", "http://127.0.0.1:3000")
+	ctx.Header("Access-Control-Allow-Origin", "https://f1secrets.vercel.app")
 
 	b := &database.Blog{}
 
@@ -62,7 +62,7 @@ func Create(ctx *gin.Context) {
 
 // Show handler function returns a record that matches the provided Id, 404 error code is returned if record is not found
 func Show(ctx *gin.Context) {
-	ctx.Header("Access-Control-Allow-Origin", "http://127.0.0.1:3000")
+	ctx.Header("Access-Control-Allow-Origin", "https://f1secrets.vercel.app")
 
 	b := &database.Blog{}
 
@@ -89,6 +89,8 @@ func Show(ctx *gin.Context) {
 
 // Delete handler function will delete a record from the database that matches given Id
 func Delete(ctx *gin.Context) {
+	ctx.Header("Access-Control-Allow-Origin", "https://f1secrets.vercel.app")
+
 	b := &database.Blog{}
 
 	id, e := strconv.Atoi(ctx.Param("blog_id"))
@@ -114,6 +116,8 @@ func Delete(ctx *gin.Context) {
 
 // Patch handler function will update a column or set of column in the database given the database record Id
 func Patch(ctx *gin.Context) {
+	ctx.Header("Access-Control-Allow-Origin", "https://f1secrets.vercel.app")
+
 	b := &database.Blog{}
 	p := &PatchBlog{}
 
