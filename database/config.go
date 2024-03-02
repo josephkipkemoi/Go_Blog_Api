@@ -11,10 +11,10 @@ import (
 var DB *gorm.DB
 
 const (
-	host     = "127.0.0.1"
+	host     = "dpg-cnhmv9779t8c73er5n9g-a"
 	port     = "5432"
-	user     = "jkemboe"
-	password = "commandme007!@~"
+	user     = "f1secretsdb_user"
+	password = "o9oLdKmDUsE8jfqR2xq8mnOzWEfJjkFW"
 	dbname   = "f1secretsdb"
 )
 
