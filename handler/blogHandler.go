@@ -32,6 +32,8 @@ func Index(ctx *gin.Context) {
 
 // Create handler function creates a new record on the database with the provided fields
 func Create(ctx *gin.Context) {
+	ctx.Header("Access-Control-Allow-Origin", "https://f1secrets.vercel.app")
+
 	b := &database.Blog{}
 
 	validate = validator.New()
