@@ -35,3 +35,27 @@ func TestCannotRegisterNewUserWithInvalidPassword(t *testing.T) {
 
 	assert.Equal(t, http.StatusUnprocessableEntity, w.Code)
 }
+
+func TestCanRegisterNewUserWithValidCredentials(t *testing.T) {
+	r := server.ConnectServer()
+
+	i := &handler.RegisterUserInput{
+		FirstName:       "Joseph",
+		LastName:        "Mwanzia",
+		Email:           "jkemboe@gmail.com",
+		Password:        "12345",
+		ConfirmPassword: "12345",
+		RememberMe:      true,
+	}
+
+	d, err := json.Marshal(i)
+	checkErr(err)
+
+	body := bytes.NewReader(d)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("POST", "/api/v1/auth/user/register", body)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusCreated, w.Code)
+}
