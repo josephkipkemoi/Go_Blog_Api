@@ -9,6 +9,12 @@ type RegisterUserInput struct {
 	RememberMe      bool   `json:"rememberMe"`
 }
 
+type LoginUserInput struct {
+	Email      string `json:"email"`
+	Password   string `json:"password"`
+	RememberMe bool   `json:"rememberMe"`
+}
+
 type PatchBlog struct {
 	Title     string `json:"title"`
 	Author    string `json:"author"`
