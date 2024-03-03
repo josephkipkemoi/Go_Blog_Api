@@ -62,3 +62,44 @@ func AuthRegister(ctx *gin.Context) {
 		"token": tokenString,
 	})
 }
+
+func AuthLogin(ctx *gin.Context) {
+	ctx.Header("Access-Control-Allow-Origin", "http://127.0.0.1:3000")
+
+	i := &LoginUserInput{}
+	u := database.User{}
+
+	validate = validator.New()
+	e := validate.Struct(i)
+
+	errs, ok := validationErrors(e)
+	if !ok {
+		ctx.JSON(http.StatusUnprocessableEntity, gin.H{
+			"error": errs,
+		})
+		return
+	}
+
+	ctx.ShouldBindJSON(i)
+
+	user, verified := u.LoginUser(i.Email, i.Password)
+	if verified != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"error": "email or password do not match",
+		})
+		return
+	}
+
+	tokenString, err := createJWTToken(i.Email)
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"error": "unauthorized",
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"user":  user,
+		"token": tokenString,
+	})
+}
