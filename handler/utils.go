@@ -23,3 +23,11 @@ func validationErrors(err error) ([]string, bool) {
 	}
 	return errs, true
 }
+
+func comparePasswords(str1, str2 string) bool {
+	if str1 == str2 {
+		return true
+	} else {
+		return false
+	}
+}
