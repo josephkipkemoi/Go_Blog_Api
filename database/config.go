@@ -11,10 +11,10 @@ import (
 var DB *gorm.DB
 
 const (
-	host     = "dpg-cnhmv9779t8c73er5n9g-a"
+	host     = "127.0.0.1"
 	port     = "5432"
-	user     = "f1secretsdb_user"
-	password = "o9oLdKmDUsE8jfqR2xq8mnOzWEfJjkFW"
+	user     = "jkemboe"
+	password = "commandme007!@~"
 	dbname   = "f1secretsdb"
 )
 
@@ -33,6 +33,7 @@ func ConnectDatabase() {
 	fmt.Println("********************************")
 
 	Db.AutoMigrate(
+		&User{},
 		&Blog{},
 	)
 
