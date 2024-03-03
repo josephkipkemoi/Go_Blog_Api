@@ -103,3 +103,35 @@ func AuthLogin(ctx *gin.Context) {
 		"token": tokenString,
 	})
 }
+
+func AuthVerify(ctx *gin.Context) {
+	ctx.Header("Access-Control-Allow-Origin", "http://127.0.0.1:3000")
+
+	jwtToken := ctx.GetHeader("Token")
+	if jwtToken == "" {
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"error": "invalid/malformed token",
+		})
+		return
+	}
+
+	verified, err := VerifyToken(jwtToken)
+	if err != nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"error": "invalid/malformed token",
+		})
+		return
+	}
+
+	if !verified.(bool) {
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"error": "unauthorized",
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"authorized": true,
+	})
+
+}
