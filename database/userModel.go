@@ -6,7 +6,7 @@ func (u *User) RegisterUser() (*User, error) {
 	err := DB.Create(&u).Error
 
 	if err != nil {
-		return &User{}, nil
+		return &User{}, fmt.Errorf("%s", "error creating new user")
 	}
 	return u, nil
 }
