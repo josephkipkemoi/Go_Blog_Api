@@ -7,7 +7,13 @@ import (
 )
 
 func Api(r *gin.Engine) {
+	// Landing Route
 	r.GET("/", handler.LandingHandler)
+
+	// User Routes
+	r.POST("/api/v1/auth/user/register", handler.AuthRegister)
+
+	// Blog Routes
 	r.POST("/api/v1/blog/new", handler.Create)
 	r.GET("/api/v1/blog", handler.Index)
 	r.GET("/api/v1/blogs/:blog_id", handler.Show)
