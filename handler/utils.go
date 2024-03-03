@@ -9,7 +9,7 @@ import (
 )
 
 // createJWTToken function creates a JWT Token and provides the client for future request validations
-func createJWTToken(username string) (string, error) {
+func CreateJWTToken(username string) (string, error) {
 	var (
 		key []byte
 		t   *jwt.Token
