@@ -49,7 +49,7 @@ func AuthRegister(ctx *gin.Context) {
 		return
 	}
 
-	tokenString, err := createJWTToken(usr.Email)
+	tokenString, err := CreateJWTToken(usr.Email)
 	if err != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": "authorization failure",
@@ -90,7 +90,7 @@ func AuthLogin(ctx *gin.Context) {
 		return
 	}
 
-	tokenString, err := createJWTToken(i.Email)
+	tokenString, err := CreateJWTToken(i.Email)
 	if err != nil {
 		ctx.JSON(http.StatusUnauthorized, gin.H{
 			"error": "unauthorized",
