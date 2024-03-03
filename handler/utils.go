@@ -31,6 +31,23 @@ func CreateJWTToken(username string) (string, error) {
 	return s, nil
 }
 
+// VerifyToken function is responsible for checking whether the given token by the client is valid
+func VerifyToken(tokenString string) (interface{}, error) {
+	token, err := jwt.Parse(tokenString, func(t *jwt.Token) (interface{}, error) {
+		return tokenString, nil
+	})
+	_, ok := token.Method.(*jwt.SigningMethodHMAC)
+
+	if !ok {
+		return false, err
+	}
+
+	c := token.Claims.(jwt.MapClaims)
+	authorized := c["authorized"]
+
+	return authorized, nil
+}
+
 // validationErrors returns found errors stored in a slice and true if errors are found empty slice and false otherwise
 func validationErrors(err error) ([]string, bool) {
 	errs := []string{}
