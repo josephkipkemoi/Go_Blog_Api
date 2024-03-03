@@ -122,3 +122,29 @@ func TestRegisteredUserCanLogInWithValidCredentials(t *testing.T) {
 
 	assert.Equal(t, http.StatusOK, w.Code)
 }
+
+func TestCanAuthenticateUser(t *testing.T) {
+	r := server.ConnectServer()
+
+	u := &database.User{
+		FirstName:  "joseph",
+		LastName:   "ngetich",
+		Email:      "jkemboe@gmail.com",
+		Password:   "12345",
+		RememberMe: true,
+	}
+
+	u.RegisterUser()
+
+	tokenString, _ := handler.CreateJWTToken(u.Email)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest(http.MethodGet, "/api/v1/auth/user/verify", nil)
+	req.Header = http.Header{
+		"Content-Type": {"application/json"},
+		"Token":        {tokenString},
+	}
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+}
