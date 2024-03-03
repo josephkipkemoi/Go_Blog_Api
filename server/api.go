@@ -12,6 +12,7 @@ func Api(r *gin.Engine) {
 
 	// User Routes
 	r.POST("/api/v1/auth/user/register", handler.AuthRegister)
+	r.POST("/api/v1/auth/user/login", handler.AuthLogin)
 
 	// Blog Routes
 	r.POST("/api/v1/blog/new", handler.Create)
