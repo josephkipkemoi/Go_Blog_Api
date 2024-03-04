@@ -2,11 +2,23 @@ package server
 
 import (
 	"f1-blog/handler"
+	"time"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func Api(r *gin.Engine) {
+
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"http://127.0.0.1:3000"},
+		AllowMethods:     []string{"PUT", "PATCH", "GET", "DELETE", "POST"},
+		AllowHeaders:     []string{"Origin, Content-Type, Token, Accept, X-Requested-With, withCredentials, Access-Control-Allow-Origin"},
+		ExposeHeaders:    []string{"Origin, Content-Type, Token, Accept, X-Requested-With, Access-Control-Allow-Origin"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
+
 	// Landing Route
 	r.GET("/", handler.LandingHandler)
 
@@ -21,4 +33,5 @@ func Api(r *gin.Engine) {
 	r.GET("/api/v1/blogs/:blog_id", handler.Show)
 	r.DELETE("/api/v1/blogs/:blog_id/delete", handler.Delete)
 	r.PATCH("/api/v1/blogs/:blog_id/patch", handler.Patch)
+
 }

@@ -13,5 +13,6 @@ func main() {
 	database.ConnectDatabase() // connect to DB
 
 	r := server.ConnectServer() // connect to server
+
 	r.Run(port)
 }

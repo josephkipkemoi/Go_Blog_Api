@@ -4,11 +4,12 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
-	FirstName  string `gorm:"not null;" json:"firstName" `
-	LastName   string `gorm:"not null;" json:"lastName" `
-	Email      string `gorm:"not null;" json:"email" `
-	Password   string `gorm:"not null;" json:"password" `
-	RememberMe bool   `gorm:"not null;" json:"rememberMe" `
+	RoleId     int    `gorm:"not null;default:3" json:"roleId"`
+	FirstName  string `gorm:"not null;" json:"firstName"`
+	LastName   string `gorm:"not null;" json:"lastName"`
+	Email      string `gorm:"unique" json:"email"`
+	Password   string `gorm:"not null;" json:"-"`
+	RememberMe bool   `gorm:"not null;" json:"rememberMe"`
 }
 
 type Blog struct {

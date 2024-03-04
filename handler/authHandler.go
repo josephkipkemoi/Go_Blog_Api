@@ -9,8 +9,6 @@ import (
 )
 
 func AuthRegister(ctx *gin.Context) {
-	ctx.Header("Access-Control-Allow-Origin", "http://127.0.0.1:3000")
-
 	i := &RegisterUserInput{}
 	usr := &database.User{}
 
@@ -64,8 +62,6 @@ func AuthRegister(ctx *gin.Context) {
 }
 
 func AuthLogin(ctx *gin.Context) {
-	ctx.Header("Access-Control-Allow-Origin", "http://127.0.0.1:3000")
-
 	i := &LoginUserInput{}
 	u := database.User{}
 
@@ -105,8 +101,6 @@ func AuthLogin(ctx *gin.Context) {
 }
 
 func AuthVerify(ctx *gin.Context) {
-	ctx.Header("Access-Control-Allow-Origin", "http://127.0.0.1:3000")
-
 	jwtToken := ctx.GetHeader("Token")
 	if jwtToken == "" {
 		ctx.JSON(http.StatusUnauthorized, gin.H{
