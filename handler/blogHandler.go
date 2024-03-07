@@ -14,6 +14,7 @@ var validate *validator.Validate
 // Index handler function returns all records from the database
 func Index(ctx *gin.Context) {
 	ctx.Header("Access-Control-Allow-Origin", "https://f1secrets.vercel.app")
+
 	b := &database.Blog{}
 
 	d, err := b.GetBlogs()
