@@ -11,12 +11,9 @@ import (
 
 // Load Environment Variables
 func init() {
-	env := os.Getenv("APP_ENV")
-	if env == "development" || env == "" {
-		err := godotenv.Load("./.env")
-		if err != nil {
-			log.Fatalf("error loading .env file: %s", err)
-		}
+	err := godotenv.Load("./.env")
+	if err != nil {
+		log.Println("error loading .env file: ", err)
 	}
 }
 
