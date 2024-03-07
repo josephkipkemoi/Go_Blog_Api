@@ -32,6 +32,7 @@ func ConnectDatabase() {
 	fmt.Println("********************************")
 
 	Db.AutoMigrate(
+		&Roles{},
 		&User{},
 		&Blog{},
 	)

@@ -2,6 +2,11 @@ package database
 
 import "gorm.io/gorm"
 
+type Roles struct {
+	gorm.Model
+	RoleName string `gorm:"not null;" json:"roleName"`
+}
+
 type User struct {
 	gorm.Model
 	RoleId     int    `gorm:"not null;default:3" json:"roleId"`
