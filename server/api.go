@@ -2,6 +2,7 @@ package server
 
 import (
 	"f1-blog/handler"
+	"os"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -9,9 +10,10 @@ import (
 )
 
 func Api(r *gin.Engine) {
+	var frontEndUrl string = os.Getenv("FRONTEND_URL")
 
 	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"https://f1secrets.vercel.app"},
+		AllowOrigins:     []string{frontEndUrl},
 		AllowMethods:     []string{"PUT", "PATCH", "GET", "DELETE", "POST"},
 		AllowHeaders:     []string{"Origin, Content-Type, Token, Accept, X-Requested-With, withCredentials, Access-Control-Allow-Origin"},
 		ExposeHeaders:    []string{"Origin, Content-Type, Token, Accept, X-Requested-With, Access-Control-Allow-Origin"},

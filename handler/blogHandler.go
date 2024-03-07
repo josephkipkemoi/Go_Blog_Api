@@ -3,6 +3,7 @@ package handler
 import (
 	"f1-blog/database"
 	"net/http"
+	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -13,7 +14,9 @@ var validate *validator.Validate
 
 // Index handler function returns all records from the database
 func Index(ctx *gin.Context) {
-	ctx.Header("Access-Control-Allow-Origin", "https://f1secrets.vercel.app")
+	var frontEndUrl string = os.Getenv("FRONTEND_URL")
+
+	ctx.Header("Access-Control-Allow-Origin", frontEndUrl)
 
 	b := &database.Blog{}
 
