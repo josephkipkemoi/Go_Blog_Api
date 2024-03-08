@@ -27,9 +27,19 @@ func ConnectDatabase() {
 		log.Fatalf("Error Message: %s", err)
 	}
 
-	fmt.Println("********************************")
-	fmt.Println("Database connected succesfully")
-	fmt.Println("********************************")
+	log.Println("********************************")
+	log.Println("Database connected succesfully")
+	log.Println("********************************")
+
+	runMigrations(Db)
+
+	DB = Db
+}
+
+func runMigrations(Db *gorm.DB) {
+	log.Println("********************************")
+	log.Println("Running migrations")
+	log.Println("********************************")
 
 	Db.AutoMigrate(
 		&Roles{},
@@ -37,5 +47,7 @@ func ConnectDatabase() {
 		&Blog{},
 	)
 
-	DB = Db
+	log.Println("********************************")
+	log.Println("Migrations complete")
+	log.Println("********************************")
 }

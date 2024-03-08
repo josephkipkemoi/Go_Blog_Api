@@ -5,13 +5,22 @@ import (
 	"encoding/json"
 	"f1-blog/database"
 	"f1-blog/server"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
 	"testing"
 
 	"github.com/go-playground/assert"
+	"github.com/joho/godotenv"
 )
+
+func init() {
+	err := godotenv.Load("../.env")
+	if err != nil {
+		log.Println("error loading .env file: ", err)
+	}
+}
 
 func init() {
 	database.ConnectDatabase()
