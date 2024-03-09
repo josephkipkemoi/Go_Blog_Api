@@ -50,7 +50,8 @@ func Create(ctx *gin.Context) {
 
 	ctx.ShouldBindJSON(b)
 
-	blog, e := b.CreateBlog()
+	blog, e := database.Create(b)
+
 	if e != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": "error creating blog post",

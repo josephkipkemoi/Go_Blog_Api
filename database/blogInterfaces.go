@@ -1,8 +1,14 @@
 package database
 
-import (
-	"fmt"
-)
+import "fmt"
+
+type BlogInterface interface {
+	CreateBlog() (*Blog, error)
+	GetBlogs() ([]Blog, error)
+	GetBlogById(int) (*Blog, error)
+	DeleteBlogById(int) error
+	PatchBlogById(int, interface{}) error
+}
 
 func (b *Blog) CreateBlog() (*Blog, error) {
 	err := DB.Create(&b).Error
