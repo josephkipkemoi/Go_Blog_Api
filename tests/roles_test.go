@@ -49,7 +49,7 @@ func TestCanGetRolesById(t *testing.T) {
 	r := server.ConnectServer()
 
 	role := &database.Roles{
-		RoleName: "Author",
+		RoleName: "Admin",
 	}
 
 	role.Create()
@@ -67,7 +67,7 @@ func TestCanGetRoles(t *testing.T) {
 	r := server.ConnectServer()
 
 	role := &database.Roles{
-		RoleName: "Author",
+		RoleName: "Reader",
 	}
 
 	role.Create()
@@ -77,4 +77,22 @@ func TestCanGetRoles(t *testing.T) {
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
+}
+
+func TestCanDeleteRoleById(t *testing.T) {
+	r := server.ConnectServer()
+
+	role := &database.Roles{
+		RoleName: "Readers sAuthor",
+	}
+
+	role.Create()
+
+	// roleId := strconv.Itoa(int(role.ID))
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("DELETE", "/api/v1/roles/1", nil)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusNoContent, w.Code)
 }
