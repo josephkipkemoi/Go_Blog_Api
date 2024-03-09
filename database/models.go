@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type Roles struct {
 	gorm.Model
-	RoleName string `gorm:"not null;" json:"roleName"`
+	RoleName string `gorm:"unique;not null;" json:"roleName"`
 }
 
 type User struct {

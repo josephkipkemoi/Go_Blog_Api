@@ -38,7 +38,7 @@ func TestCanCreateRoles(t *testing.T) {
 	body := bytes.NewReader(d)
 
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("POST", "api/v1/roles", body)
+	req, _ := http.NewRequest("POST", "/api/v1/roles", body)
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusCreated, w.Code)

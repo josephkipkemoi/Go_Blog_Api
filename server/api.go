@@ -24,6 +24,9 @@ func Api(r *gin.Engine) {
 	// Landing Route
 	r.GET("/", handler.LandingHandler)
 
+	// Roles Routes
+	r.POST("/api/v1/roles", handler.CreateRole)
+
 	// User Routes
 	r.POST("/api/v1/auth/user/register", handler.AuthRegister)
 	r.POST("/api/v1/auth/user/login", handler.AuthLogin)
