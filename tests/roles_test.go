@@ -8,6 +8,7 @@ import (
 	"log"
 	"net/http"
 	"net/http/httptest"
+	"strconv"
 	"testing"
 
 	"github.com/go-playground/assert"
@@ -42,4 +43,38 @@ func TestCanCreateRoles(t *testing.T) {
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusCreated, w.Code)
+}
+
+func TestCanGetRolesById(t *testing.T) {
+	r := server.ConnectServer()
+
+	role := &database.Roles{
+		RoleName: "Author",
+	}
+
+	role.Create()
+
+	roleId := strconv.Itoa(int(role.ID))
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/api/v1/roles/"+roleId, nil)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+}
+
+func TestCanGetRoles(t *testing.T) {
+	r := server.ConnectServer()
+
+	role := &database.Roles{
+		RoleName: "Author",
+	}
+
+	role.Create()
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/api/v1/roles", nil)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
 }

@@ -36,3 +36,19 @@ func CreateRole(ctx *gin.Context) {
 		"role": role,
 	})
 }
+
+func IndexRoles(ctx *gin.Context) {
+	r := &database.Roles{}
+
+	d, err := r.Index()
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"data": d,
+	})
+}
