@@ -31,3 +31,11 @@ type Category struct {
 	gorm.Model
 	CategoryName string `gorm:"unique;not null;" json:"categoryName"`
 }
+
+type Contact struct {
+	gorm.Model
+	FirstName string `gorm:"not null;" json:"firstName"`
+	LastName  string `gorm:"not null;" json:"lastName"`
+	Email     string `gorm:"not null;" json:"email"`
+	Message   string `gorm:"not null;" json:"message"`
+}
