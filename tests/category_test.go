@@ -30,3 +30,19 @@ func TestCanCreateCategory(t *testing.T) {
 
 	assert.Equal(t, http.StatusCreated, w.Code)
 }
+
+func TestCanGetCategories(t *testing.T) {
+	r := server.ConnectServer()
+
+	c := &database.Category{
+		CategoryName: "Nascar Two ho",
+	}
+
+	c.Create()
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/api/v1/category", nil)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+}

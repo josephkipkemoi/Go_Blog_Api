@@ -36,3 +36,19 @@ func CreateCategory(ctx *gin.Context) {
 		"category": ct,
 	})
 }
+
+func IndexCategory(ctx *gin.Context) {
+	c := &database.Category{}
+
+	d, err := c.Index()
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"data": d,
+	})
+}

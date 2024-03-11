@@ -89,7 +89,7 @@ func DeleteRoles(ctx *gin.Context) {
 	}
 
 	err := r.Delete(id)
-	if e != nil {
+	if err != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{
 			"error": err,
 		})

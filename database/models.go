@@ -17,16 +17,16 @@ type User struct {
 	RememberMe bool   `gorm:"not null;" json:"rememberMe"`
 }
 
-type Category struct {
-	gorm.Model
-	CategoryName string `gorm:"unique;not null;" json:"categoryName"`
-}
-
 type Blog struct {
 	gorm.Model
-	CategoryId int    `gorm:"not null;" json:"categoryId" `
+	CategoryId int    `gorm:"foreignKey:CategoryRefer;not null;" json:"categoryId" `
 	Title      string `gorm:"not null;" json:"title" `
 	Image_Url  string `gorm:"not null;" json:"image_url"`
 	Author     string `gorm:"not null; size:25" json:"author"`
 	Body       string `gorm:"not null;" json:"body"`
+}
+
+type Category struct {
+	gorm.Model
+	CategoryName string `gorm:"unique;not null;" json:"categoryName"`
 }
