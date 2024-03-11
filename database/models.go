@@ -21,6 +21,7 @@ type Blog struct {
 	gorm.Model
 	CategoryId int    `gorm:"foreignKey:CategoryRefer;not null;" json:"categoryId" `
 	Title      string `gorm:"not null;" json:"title" `
+	Featured   bool   `json:"featured"`
 	Image_Url  string `gorm:"not null;" json:"image_url"`
 	Author     string `gorm:"not null; size:25" json:"author"`
 	Body       string `gorm:"not null;" json:"body"`
