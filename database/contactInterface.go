@@ -12,7 +12,7 @@ func (c *Contact) Create() error {
 
 func (c *Contact) Index() ([]Contact, error) {
 	var contacts []Contact
-	res := DB.Order("id desc").Take(20).Find(&contacts)
+	res := DB.Order("id desc").Find(&contacts)
 
 	if res.Error != nil {
 		return contacts, res.Error

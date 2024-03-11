@@ -36,3 +36,19 @@ func CreateContact(ctx *gin.Context) {
 		"message": "message sent",
 	})
 }
+
+func IndexContact(ctx *gin.Context) {
+	c := &database.Contact{}
+
+	d, err := c.Index()
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"data": d,
+	})
+}
