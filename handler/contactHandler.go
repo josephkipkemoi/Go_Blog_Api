@@ -3,6 +3,7 @@ package handler
 import (
 	"f1-blog/database"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -46,6 +47,29 @@ func IndexContact(ctx *gin.Context) {
 			"error": err,
 		})
 		return
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"data": d,
+	})
+}
+
+func ShowContact(ctx *gin.Context) {
+	c := &database.Contact{}
+
+	id, e := strconv.Atoi(ctx.Param("contact_id"))
+	if e != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error": e,
+		})
+		return
+	}
+
+	d, err := c.Show(id)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error": err,
+		})
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{

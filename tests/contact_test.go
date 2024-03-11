@@ -65,3 +65,22 @@ func TestCanGetContactMessages(t *testing.T) {
 
 	assert.Equal(t, http.StatusOK, w.Code)
 }
+
+func TestCanGetContactById(t *testing.T) {
+	r := server.ConnectServer()
+
+	c := &database.Contact{
+		FirstName: "Joseph",
+		LastName:  "Sang",
+		Email:     "jk@gmail.com",
+		Message:   "rem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambl",
+	}
+
+	c.Create()
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/api/v1/contact/1", nil)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+}
