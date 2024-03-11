@@ -16,6 +16,7 @@ func runMigrations(Db *gorm.DB) {
 		&User{},
 		&Blog{},
 		&Category{},
+		&Contact{},
 	)
 
 	log.Println("********************************")
