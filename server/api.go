@@ -50,4 +50,5 @@ func Api(r *gin.Engine) {
 	r.POST("/api/v1/contact", handler.CreateContact)
 	r.GET("/api/v1/contact", handler.IndexContact)
 	r.GET("/api/v1/contact/:contact_id", handler.ShowContact)
+	r.DELETE("/api/v1/contact/:contact_id", handler.DeleteContact)
 }

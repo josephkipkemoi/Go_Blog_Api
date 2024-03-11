@@ -76,3 +76,27 @@ func ShowContact(ctx *gin.Context) {
 		"data": d,
 	})
 }
+
+func DeleteContact(ctx *gin.Context) {
+	c := &database.Contact{}
+
+	id, e := strconv.Atoi(ctx.Param("contact_id"))
+	if e != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error": e,
+		})
+		return
+	}
+
+	err := c.Delete(id)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error": err,
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusNoContent, gin.H{
+		"message": "contact deleted",
+	})
+}
