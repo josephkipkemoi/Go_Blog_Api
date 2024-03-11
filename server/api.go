@@ -46,4 +46,6 @@ func Api(r *gin.Engine) {
 	r.DELETE("/api/v1/blogs/:blog_id/delete", handler.Delete)
 	r.PATCH("/api/v1/blogs/:blog_id/patch", handler.Patch)
 
+	// Contact Routes
+	r.POST("/api/v1/contact", handler.CreateContact)
 }

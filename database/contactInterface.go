@@ -3,7 +3,7 @@ package database
 import "fmt"
 
 func (c *Contact) Create() error {
-	err := DB.Create(c).Error
+	err := DB.Create(&c).Error
 	if err != nil {
 		return err
 	}
