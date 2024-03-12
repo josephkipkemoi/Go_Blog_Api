@@ -44,3 +44,20 @@ func TestClientCanPostFavourites(t *testing.T) {
 
 	assert.Equal(t, http.StatusCreated, w.Code)
 }
+
+func TestClientCanGetFavourites(t *testing.T) {
+	r := server.ConnectServer()
+
+	fav := &database.Favourite{
+		UserId: 1,
+		BlogId: 23,
+	}
+
+	fav.Create()
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("GET", "/api/v1/favourites/users/1", nil)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+}

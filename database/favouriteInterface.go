@@ -10,9 +10,9 @@ func (f *Favourite) Create() error {
 	return nil
 }
 
-func (f *Favourite) Index() ([]Favourite, error) {
+func (f *Favourite) Index(id int) ([]Favourite, error) {
 	var favourites []Favourite
-	res := DB.Order("id asc").Find(&favourites)
+	res := DB.Order("id asc").Where("user_id", id).Find(&favourites)
 
 	if res.Error != nil {
 		return favourites, res.Error

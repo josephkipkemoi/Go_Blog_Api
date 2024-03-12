@@ -3,6 +3,7 @@ package handler
 import (
 	"f1-blog/database"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -38,7 +39,26 @@ func CreateFavourite(ctx *gin.Context) {
 }
 
 func IndexFavourite(ctx *gin.Context) {
-	panic("Not implemented")
+	f := &database.Favourite{}
+
+	id, e := strconv.Atoi(ctx.Param("user_id"))
+	if e != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error": e,
+		})
+		return
+	}
+
+	d, err := f.Index(id)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error": err,
+		})
+	}
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"data": d,
+	})
 }
 
 func DeleteFavourite(ctx *gin.Context) {
