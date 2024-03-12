@@ -55,5 +55,5 @@ func Api(r *gin.Engine) {
 	// Favourite Routes
 	r.POST("/api/v1/favourites", handler.CreateFavourite)
 	r.GET("/api/v1/favourites/users/:user_id", handler.IndexFavourite)
-	r.DELETE("/api/v1/favourites/:favourite_id", handler.DeleteFavourite)
+	r.DELETE("/api/v1/favourites/:favourite_id/users/:user_id", handler.DeleteFavourite)
 }

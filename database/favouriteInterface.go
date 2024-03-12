@@ -20,8 +20,8 @@ func (f *Favourite) Index(id int) ([]Favourite, error) {
 	return favourites, nil
 }
 
-func (f *Favourite) Delete(id int) error {
-	res := DB.Delete(&f, id)
+func (f *Favourite) Delete(user_id, id int) error {
+	res := DB.Where("user_id", user_id).Delete(&f, id)
 	if res.Error != nil || res.RowsAffected == 0 {
 		return fmt.Errorf("%s", "not found: cannot delete record")
 	}

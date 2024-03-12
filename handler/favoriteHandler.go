@@ -62,5 +62,27 @@ func IndexFavourite(ctx *gin.Context) {
 }
 
 func DeleteFavourite(ctx *gin.Context) {
-	panic("Not implemented")
+	f := &database.Favourite{}
+
+	user_id, e := strconv.Atoi(ctx.Param("user_id"))
+	fav_id, _ := strconv.Atoi(ctx.Param("favourite_id"))
+
+	if e != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error": e,
+		})
+		return
+	}
+
+	err := f.Delete(user_id, fav_id)
+	if err != nil {
+		ctx.JSON(http.StatusNotFound, gin.H{
+			"error": err,
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusNoContent, gin.H{
+		"message": "favorite deleted",
+	})
 }
