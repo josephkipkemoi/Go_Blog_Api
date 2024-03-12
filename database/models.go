@@ -39,3 +39,9 @@ type Contact struct {
 	Email     string `gorm:"not null;" json:"email"`
 	Message   string `gorm:"not null;" json:"message"`
 }
+
+type Favourite struct {
+	gorm.Model
+	BlogId int `gorm:"not null;" json:"blogId"`
+	UserId int `gorm:"not null;" json:"userId"`
+}
