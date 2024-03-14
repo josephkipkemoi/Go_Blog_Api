@@ -5,7 +5,7 @@ func Create(b BlogInterface) (*Blog, error) {
 	return blog, err
 }
 
-func Index(b BlogInterface) ([]Blog, error) {
-	blogs, err := b.GetBlogs()
-	return blogs, err
-}
+// func Index(b BlogInterface) ([]Blog, error) {
+// 	blogs, err := b.GetBlogs()
+// 	return blogs, err
+// }

@@ -1,10 +1,12 @@
 package database
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type BlogInterface interface {
 	CreateBlog() (*Blog, error)
-	GetBlogs() ([]Blog, error)
+	GetBlogs(int, bool) ([]Blog, []Blog, string, error)
 	GetBlogById(int) (*Blog, error)
 	DeleteBlogById(int) error
 	PatchBlogById(int, interface{}) error
@@ -13,6 +15,7 @@ type BlogInterface interface {
 func (b *Blog) CreateBlog() (*Blog, error) {
 	err := DB.Create(&b).Error
 
+	DB.Table("blogs").Take(b)
 	if err != nil {
 		return &Blog{}, err
 	}
@@ -20,15 +23,19 @@ func (b *Blog) CreateBlog() (*Blog, error) {
 	return b, nil
 }
 
-func (b *Blog) GetBlogs() ([]Blog, error) {
+func (b *Blog) GetBlogs(c_id int, f bool) ([]Blog, []Blog, string, error) {
+	c := Category{}
 	var blog []Blog
-	res := DB.Order("id desc").Limit(20).Find(&blog)
+	var featured []Blog
+	DB.Table("categories").Find(&c, c_id)
+	res := DB.Where("category_id = ?", c_id).Order("id desc").Limit(5).Find(&blog)
+	DB.Where("featured = ?", f).Where("category_id = ?", c_id).Order("id desc").Limit(3).Find(&featured)
 
 	if res.Error != nil {
-		return blog, res.Error
+		return blog, featured, "", res.Error
 	}
 
-	return blog, nil
+	return blog, featured, c.CategoryName, nil
 }
 
 func (b *Blog) GetBlogById(id int) (*Blog, error) {

@@ -19,7 +19,7 @@ type User struct {
 
 type Blog struct {
 	gorm.Model
-	CategoryId int    `gorm:"foreignKey:CategoryRefer;not null;" json:"categoryId" `
+	CategoryId int    `json:"categoryId" `
 	Title      string `gorm:"not null;" json:"title" `
 	Featured   bool   `json:"featured"`
 	Image_Url  string `gorm:"not null;" json:"image_url"`

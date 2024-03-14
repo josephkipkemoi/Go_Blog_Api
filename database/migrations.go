@@ -12,11 +12,11 @@ func runMigrations(Db *gorm.DB) {
 	log.Println("********************************")
 
 	Db.AutoMigrate(
+		&Blog{},
 		&Favourite{},
 		&Contact{},
 		&Roles{},
 		&User{},
-		&Blog{},
 		&Category{},
 	)
 
