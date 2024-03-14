@@ -27,14 +27,11 @@ func ConnectDatabase() {
 		log.Fatalf("Error Message: %s", err)
 	}
 
-	fmt.Println("********************************")
-	fmt.Println("Database connected succesfully")
-	fmt.Println("********************************")
+	log.Println("********************************")
+	log.Println("Database connected succesfully")
+	log.Println("********************************")
 
-	Db.AutoMigrate(
-		&User{},
-		&Blog{},
-	)
+	runMigrations(Db)
 
 	DB = Db
 }

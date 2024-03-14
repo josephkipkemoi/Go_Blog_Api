@@ -24,10 +24,20 @@ func Api(r *gin.Engine) {
 	// Landing Route
 	r.GET("/", handler.LandingHandler)
 
+	// Roles Routes
+	r.POST("/api/v1/roles", handler.CreateRole)
+	r.GET("/api/v1/roles", handler.IndexRoles)
+	r.GET("/api/v1/roles/:role_id", handler.ShowRoles)
+	r.DELETE("/api/v1/roles/:role_id", handler.DeleteRoles)
+
 	// User Routes
 	r.POST("/api/v1/auth/user/register", handler.AuthRegister)
 	r.POST("/api/v1/auth/user/login", handler.AuthLogin)
 	r.GET("/api/v1/auth/user/verify", handler.AuthVerify)
+
+	// Category Routes
+	r.POST("/api/v1/category", handler.CreateCategory)
+	r.GET("/api/v1/category", handler.IndexCategory)
 
 	// Blog Routes
 	r.POST("/api/v1/blog/new", handler.Create)
@@ -36,4 +46,14 @@ func Api(r *gin.Engine) {
 	r.DELETE("/api/v1/blogs/:blog_id/delete", handler.Delete)
 	r.PATCH("/api/v1/blogs/:blog_id/patch", handler.Patch)
 
+	// Contact Routes
+	r.POST("/api/v1/contact", handler.CreateContact)
+	r.GET("/api/v1/contact", handler.IndexContact)
+	r.GET("/api/v1/contact/:contact_id", handler.ShowContact)
+	r.DELETE("/api/v1/contact/:contact_id", handler.DeleteContact)
+
+	// Favourite Routes
+	r.POST("/api/v1/favourites", handler.CreateFavourite)
+	r.GET("/api/v1/favourites/users/:user_id", handler.IndexFavourite)
+	r.DELETE("/api/v1/favourites/:favourite_id/users/:user_id", handler.DeleteFavourite)
 }

@@ -5,15 +5,22 @@ import (
 	"encoding/json"
 	"f1-blog/database"
 	"f1-blog/server"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"strconv"
 	"testing"
 
 	"github.com/go-playground/assert"
+	"github.com/joho/godotenv"
 )
 
 func init() {
+	err := godotenv.Load("../.env")
+	if err != nil {
+		log.Println("error loading .env file: ", err)
+	}
+
 	database.ConnectDatabase()
 }
 
@@ -29,10 +36,12 @@ func TestAdminCanPostBlog(t *testing.T) {
 	r := server.ConnectServer()
 
 	b := &database.Blog{
-		Title:     "Test Title",
-		Author:    "Joseph Maasai",
-		Image_Url: "https://image.url",
-		Body:      "Some blog body test",
+		Title:      "Test Title",
+		CategoryId: 1,
+		Featured:   true,
+		Author:     "Joseph Maasai",
+		Image_Url:  "https://image.url",
+		Body:       "Some blog body test",
 	}
 
 	d, err := json.Marshal(b)
@@ -51,16 +60,18 @@ func TestCanGetBlogPosts(t *testing.T) {
 	r := server.ConnectServer()
 
 	b := &database.Blog{
-		Title:     "Test Title",
-		Author:    "Joseph Maasai",
-		Image_Url: "https://image.url",
-		Body:      "Some blog body test",
+		Title:      "Test Title",
+		CategoryId: 1,
+		Featured:   true,
+		Author:     "Joseph Maasai",
+		Image_Url:  "https://image.url",
+		Body:       "Some blog body test",
 	}
 
 	b.CreateBlog()
 
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/api/v1/blog", nil)
+	req, _ := http.NewRequest("GET", "/api/v1/blog?c_id=1", nil)
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)

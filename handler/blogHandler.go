@@ -20,7 +20,10 @@ func Index(ctx *gin.Context) {
 
 	b := &database.Blog{}
 
-	d, err := b.GetBlogs()
+	c_id, _ := strconv.Atoi(ctx.Query("c_id"))
+	feat, _ := strconv.ParseBool(ctx.Query("featured"))
+
+	d, f, c, err := b.GetBlogs(c_id, feat)
 	if err != nil {
 		ctx.JSON(http.StatusNotFound, gin.H{
 			"error": err.Error(),
@@ -29,7 +32,9 @@ func Index(ctx *gin.Context) {
 	}
 
 	ctx.JSON(http.StatusOK, gin.H{
-		"data": d,
+		"data":     d,
+		"featured": f,
+		"category": c,
 	})
 }
 
@@ -50,7 +55,8 @@ func Create(ctx *gin.Context) {
 
 	ctx.ShouldBindJSON(b)
 
-	blog, e := b.CreateBlog()
+	blog, e := database.Create(b)
+
 	if e != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
 			"error": "error creating blog post",

@@ -6,12 +6,21 @@ import (
 	"f1-blog/database"
 	"f1-blog/handler"
 	"f1-blog/server"
+	"log"
 	"net/http"
 	"net/http/httptest"
 	"testing"
 
 	"github.com/go-playground/assert"
+	"github.com/joho/godotenv"
 )
+
+func init() {
+	err := godotenv.Load("../.env")
+	if err != nil {
+		log.Println("error loading .env file: ", err)
+	}
+}
 
 func TestCannotRegisterNewUserWithInvalidPassword(t *testing.T) {
 	r := server.ConnectServer()
