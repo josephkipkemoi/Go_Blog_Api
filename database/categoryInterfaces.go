@@ -37,3 +37,12 @@ func (c *Category) Update(id int, name string) error {
 
 	return nil
 }
+
+func (c *Category) Delete(id int) error {
+	res := DB.Delete(&c, id)
+	if res.Error != nil || res.RowsAffected == 0 {
+		return fmt.Errorf("%s", "not found: cannot delete record")
+	}
+
+	return nil
+}

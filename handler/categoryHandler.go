@@ -89,3 +89,20 @@ func UpdateCategory(ctx *gin.Context) {
 	})
 
 }
+
+func DeleteCategory(ctx *gin.Context) {
+	c := &database.Category{}
+	c_id, _ := strconv.Atoi(ctx.Param("category_id"))
+
+	err := c.Delete(c_id)
+	if err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{
+			"error": err,
+		})
+		return
+	}
+
+	ctx.JSON(http.StatusNoContent, gin.H{
+		"message": "record deleted succesfully",
+	})
+}
