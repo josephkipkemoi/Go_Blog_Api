@@ -1,5 +1,7 @@
 package database
 
+import "fmt"
+
 func (c *Category) Create() (*Category, error) {
 	res := DB.Create(c).Error
 	if res != nil {
@@ -19,4 +21,19 @@ func (c *Category) Index() ([]Category, error) {
 	}
 
 	return category, nil
+}
+
+type UpdateCategoryInput struct {
+	CategoryName string
+}
+
+func (c *Category) Update(id int, name string) error {
+	res := DB.First(&c, id)
+	if res.Error != nil || res.RowsAffected == 0 {
+		return fmt.Errorf("%s", "not found: cannot update record")
+	}
+
+	DB.Model(&c).Update("categoryName", name)
+
+	return nil
 }

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"f1-blog/database"
+	"f1-blog/handler"
 	"f1-blog/server"
 	"net/http"
 	"net/http/httptest"
@@ -45,4 +46,27 @@ func TestCanGetCategories(t *testing.T) {
 	r.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
+}
+
+func TestCanUpdateCategoryById(t *testing.T) {
+	r := server.ConnectServer()
+
+	u := handler.UpdateCategoryInput{
+		CategoryName: "Major League",
+	}
+
+	d, err := json.Marshal(u)
+	checkErr(err)
+
+	body := bytes.NewReader(d)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest("PATCH", "/api/v1/category/6", body)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusNoContent, w.Code)
+}
+
+func TestCanDeleteCategoryById(t *testing.T) {
+	panic("not implemented")
 }

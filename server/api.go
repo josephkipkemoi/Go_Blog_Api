@@ -38,6 +38,7 @@ func Api(r *gin.Engine) {
 	// Category Routes
 	r.POST("/api/v1/category", handler.CreateCategory)
 	r.GET("/api/v1/category", handler.IndexCategory)
+	r.PATCH("/api/v1/category/:category_id", handler.UpdateCategory)
 
 	// Blog Routes
 	r.POST("/api/v1/blog/new", handler.Create)
